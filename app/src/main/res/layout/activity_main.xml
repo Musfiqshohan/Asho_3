@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+
+
+
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:paddingTop="80sp"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/esho_logo" />
+
+
+
+
+    <EditText
+        android:id="@+id/search_text"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="20sp"
+        android:layout_width="220sp"
+        android:text="search here"
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:focusableInTouchMode="false"
+        android:editable="false"
+        android:inputType="text">
+        </EditText>
+
+
+
+
+
+</LinearLayout>
