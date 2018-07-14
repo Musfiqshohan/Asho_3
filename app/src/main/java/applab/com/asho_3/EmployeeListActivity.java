@@ -31,8 +31,8 @@ public class EmployeeListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     //RecyclerAdapter adapter;
-    RecyclerView.Adapter adapter;
-
+    RecyclerAdapter adapter;
+    public String currCatagory;
 
 
     @Override
@@ -45,8 +45,15 @@ public class EmployeeListActivity extends AppCompatActivity {
         String value = intent.getStringExtra("key");
         System.out.println(value);
 
+        String newCatagory =intent.getStringExtra("newCatagory");
 
-        getSupportActionBar().setTitle("Barber");
+        System.out.println("heres newcatagory-> "+newCatagory);
+        currCatagory=newCatagory;
+
+//        if(newCatagory.length()==0)
+//        getSupportActionBar().setTitle("Programmer");
+//        else
+        getSupportActionBar().setTitle(newCatagory);
 
         recyclerView =
                 (RecyclerView) findViewById(R.id.recycler_view);
@@ -54,10 +61,15 @@ public class EmployeeListActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RecyclerAdapter(this);
+        adapter = new RecyclerAdapter(EmployeeListActivity.this);
 
 
         recyclerView.setAdapter(adapter);
+
+//        if(newCatagory.length()==0)
+//        loadWorkerList("Programmer");
+//        else
+        loadWorkerList(newCatagory);
 
 
     }
@@ -65,41 +77,49 @@ public class EmployeeListActivity extends AppCompatActivity {
     public  void addEmpClicked(View v)  // I will be able to create a new task
     {
         Intent intent = new Intent(EmployeeListActivity.this, EditWorkerActivity.class);
+        intent.putExtra("currentCatagory", currCatagory);
         startActivityForResult(intent, 500);
 
     }
 
 
-//    public void loadWorkerList()
-//    {
-//        Firebase FDataBaseRef=new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories");
-//        Firebase workCat= FDataBaseRef.child("Programmer");
-//        final Firebase employeeList= workCat.child("EmployeeList");
-//
-//
-//        employeeList.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                for(DataSnapshot dsp: dataSnapshot.getChildren()){
-//
-//                    EmployeeProfile employeeProfile= dsp.getValue(EmployeeProfile.class);
-//                    adapter.updateWorkerList(employeeProfile);
-//                    adapter.notifyDataSetChanged();
-//
-//
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
-//
-//
-//    }
+    public void loadWorkerList(String catagoryName)
+    {
+        Firebase FDataBaseRef=new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories");
+        Firebase workCat= FDataBaseRef.child(catagoryName);
+        final Firebase employeeList= workCat.child("EmployeeList");
+
+
+        System.out.println();
+
+
+        employeeList.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot dsp: dataSnapshot.getChildren()){
+
+                    //System.out.println("adding: "+ dsp.getValue());
+                    EmployeeProfile employeeProfile= dsp.getValue(EmployeeProfile.class);
+                    //System.out.println("adding: "+employeeProfile.toString());
+                    adapter.updateWorkerList(employeeProfile);
+                    adapter.notifyDataSetChanged();
+
+                    System.out.println("adding: "+employeeProfile.toString());
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
+    }
 
 
 

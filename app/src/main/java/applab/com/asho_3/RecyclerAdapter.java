@@ -21,15 +21,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
     Context context;
+    ArrayList<String> titles,details;
 
     public RecyclerAdapter(Context mainActivity) {
         context = mainActivity;
-
+        titles=new ArrayList<>();
+        details=new ArrayList<>();
         titles.add("hello test");
         details.add("hello test details");
     }
 
-    ArrayList<String> titles,details;
 
 //    private String[] titles = {"Chapter One",
 //            "Chapter Two",
@@ -46,15 +47,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 //            "Item six details", "Item seven details",
 //            "Item eight details"};
 
-    private int[] images = {
-            R.drawable.android_image_1,
-            R.drawable.android_image_1,
-            R.drawable.android_image_1,
-            R.drawable.android_image_1,
-            R.drawable.android_image_1,
-            R.drawable.android_image_1,
-            R.drawable.android_image_1,
-            R.drawable.android_image_1 };
+//    private int[] images = {
+//            R.drawable.android_image_1,
+//            R.drawable.android_image_1,
+//            R.drawable.android_image_1,
+//            R.drawable.android_image_1,
+//            R.drawable.android_image_1,
+//            R.drawable.android_image_1,
+//            R.drawable.android_image_1,
+//            R.drawable.android_image_1 };
 
 
     private static final int REQUEST_CALL = 1;
@@ -70,7 +71,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemImage = (ImageView)itemView.findViewById(R.id.item_image);
+           // itemImage = (ImageView)itemView.findViewById(R.id.item_image);
             itemTitle = (TextView)itemView.findViewById(R.id.item_title);
             itemDetail =(TextView)itemView.findViewById(R.id.item_detail);
 
@@ -78,7 +79,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
 
-                    Snackbar.make(v, "Click detected on item " + position,
+                    Snackbar.make(v, "Click detected on itemxxxxxx " + position,
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
@@ -106,7 +107,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.itemTitle.setText(titles.get(i));
         viewHolder.itemDetail.setText(details.get(i));
-        viewHolder.itemImage.setImageResource(images[i]);
+       // viewHolder.itemImage.setImageResource(images[i]);
     }
 
 
@@ -119,8 +120,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public void updateWorkerList(EmployeeProfile employeeProfile)
     {
-        titles.add(employeeProfile.name);
-        details.add(employeeProfile.email);
+        titles.add(employeeProfile.Name);
+        details.add(employeeProfile.Email);
 
     }
 

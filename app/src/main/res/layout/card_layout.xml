@@ -21,20 +21,22 @@
 
 
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/item_image"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="26dp"
-            />
+        <!--<ImageView-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--android:id="@+id/item_image"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_marginRight="26dp"-->
+        <!--android:layout_toRightOf="@+id/item_image"-->
+        <!--android:layout_toRightOf="@+id/item_image"-->
+            <!--/>-->
 
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/item_title"
-            android:layout_toRightOf="@+id/item_image"
             android:layout_alignParentTop="true"
             android:textSize="20sp"
             />
@@ -43,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/item_detail"
-            android:layout_toRightOf="@+id/item_image"
+
             android:layout_below="@+id/item_title"
             />
 

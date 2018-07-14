@@ -103,6 +103,7 @@ public class CatagoryActivity extends AppCompatActivity {
     public void addCatClicked(View v)
     {
         Intent intent = new Intent(CatagoryActivity.this, AddCatagory.class);
+
         startActivityForResult(intent, 05);
     }
 

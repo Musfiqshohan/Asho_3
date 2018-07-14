@@ -44,13 +44,18 @@ public class AddCatagory extends AppCompatActivity {
 
                 String catValue= catText.getText().toString();
 
+                Intent intent = new Intent(AddCatagory.this, EmployeeListActivity.class);
+                intent.putExtra("newCatagory", catValue);
+                startActivityForResult(intent, 500);
 
-                Firebase catRef= mRootRef.child("Work_Catagories");
-                Firebase workRef= catRef.child(catValue);
-                Firebase employeeRef= workRef.child("Employee");
 
-              //  EmployeeProfile employeeProfile= new EmployeeProfile("Demo","D-5");
+//                Firebase catRef= mRootRef.child("Work_Catagories");
+//                Firebase workRef= catRef.child(catValue);
+//                Firebase employeeRef= workRef.child("Employee");
+
+                //EmployeeProfile employeeProfile= new EmployeeProfile("Demo","D-5");
                 //employeeRef.setValue(employeeProfile);
+
 
                 finish();
 

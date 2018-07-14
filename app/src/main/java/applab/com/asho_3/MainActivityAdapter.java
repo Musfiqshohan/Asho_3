@@ -35,7 +35,7 @@ public class MainActivityAdapter  extends
 
 
                 Intent myIntent = new Intent(context, EmployeeListActivity.class);
-                myIntent.putExtra("key", "hello"); //Optional parameters
+                myIntent.putExtra("newCatagory", "Programmer"); //Optional parameters
                 context.startActivity(myIntent);
 
 
