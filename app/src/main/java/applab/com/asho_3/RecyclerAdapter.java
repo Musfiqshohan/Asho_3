@@ -24,6 +24,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     ArrayList<String> titles,details;
 
     public RecyclerAdapter(Context mainActivity) {
+
         context = mainActivity;
         titles=new ArrayList<>();
         details=new ArrayList<>();
@@ -83,10 +84,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
 
-
+                    if(context instanceof EmployeeListActivity)
+                    {
                     Intent myIntent = new Intent(context, ProfileActivity.class);
                     myIntent.putExtra("key", "hello"); //Optional parameters
                     context.startActivity(myIntent);
+                    }
+                    else if(context instanceof CatagoryActivity)
+                    {
+                        Intent myIntent = new Intent(context, EmployeeListActivity.class);
+                        myIntent.putExtra("Catagory", titles.get(position)); //Optional parameters
+                        context.startActivity(myIntent);
+                    }
 
                 }
             });

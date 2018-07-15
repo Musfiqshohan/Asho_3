@@ -17,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 public class CatagoryActivity extends AppCompatActivity {
@@ -40,41 +45,49 @@ public class CatagoryActivity extends AppCompatActivity {
 
 
 
-        //adding product name and image in array list of Item type
-        productlists.add(new Item("Harley Davidson Street 750 2016 Std",
-                R.drawable.harleydavidson));
-        productlists.add(new Item("Triumph Street Scramble 2017 Std",
-                R.drawable.streetscramble1));
-        productlists.add(new Item("Suzuki GSX R1000 2017 STD",
-                R.drawable.suzukigsx1000));
-        productlists.add(new Item("Suzuki GSX R1000 2017 R",
-                R.drawable.suzukigsx1000r));
-        productlists.add(new Item("Suzuki Gixxer 2017 SP",
-                R.drawable.suzukigixxer2017));
-        productlists.add(new Item("Suzuki Gixxer 2017 SF 2017 Fuel injected ABS",
-                R.drawable.suzukigixxer2017sf));
-        productlists.add(new Item("BMW R 1200 R 2017",
-                R.drawable.bmwr1200r));
-        productlists.add(new Item("BMW R 1200 RS 2017",
-                R.drawable.bmwr1200rs));
-        productlists.add(new Item("BMW R 1200 GSA 2017",
-                R.drawable.bmwr120gsa));
-        productlists.add(new Item("Royal Enfield Classic 350 2017 Gunmental Grey",
-                R.drawable.class350gungrey));
-        productlists.add(new Item("Honda MSX125 Grom 2018 STD",
-                R.drawable.hondagrom));
-        productlists.add(new Item("UM Motorcycles Renegade 2017 classic",
-                R.drawable.renegadecommandoclassic));
-        productlists.add(new Item("Ducati Scrambler 2017 Mach 2.0",
-                R.drawable.scramblermach));
-        productlists.add(new Item("yamaha Fazer 2017 25",
-                R.drawable.yamahafazer));
+//        //adding product name and image in array list of Item type
+//        productlists.add(new Item("Harley Davidson Street 750 2016 Std",
+//                R.drawable.harleydavidson));
+//        productlists.add(new Item("Triumph Street Scramble 2017 Std",
+//                R.drawable.streetscramble1));
+//        productlists.add(new Item("Suzuki GSX R1000 2017 STD",
+//                R.drawable.suzukigsx1000));
+//        productlists.add(new Item("Suzuki GSX R1000 2017 R",
+//                R.drawable.suzukigsx1000r));
+//        productlists.add(new Item("Suzuki Gixxer 2017 SP",
+//                R.drawable.suzukigixxer2017));
+//        productlists.add(new Item("Suzuki Gixxer 2017 SF 2017 Fuel injected ABS",
+//                R.drawable.suzukigixxer2017sf));
+//        productlists.add(new Item("BMW R 1200 R 2017",
+//                R.drawable.bmwr1200r));
+//        productlists.add(new Item("BMW R 1200 RS 2017",
+//                R.drawable.bmwr1200rs));
+//        productlists.add(new Item("BMW R 1200 GSA 2017",
+//                R.drawable.bmwr120gsa));
+//        productlists.add(new Item("Royal Enfield Classic 350 2017 Gunmental Grey",
+//                R.drawable.class350gungrey));
+//        productlists.add(new Item("Honda MSX125 Grom 2018 STD",
+//                R.drawable.hondagrom));
+//        productlists.add(new Item("UM Motorcycles Renegade 2017 classic",
+//                R.drawable.renegadecommandoclassic));
+//        productlists.add(new Item("Ducati Scrambler 2017 Mach 2.0",
+//                R.drawable.scramblermach));
+//        productlists.add(new Item("yamaha Fazer 2017 25",
+//                R.drawable.yamahafazer));
+
+
+
+        System.out.println("cat-> finished");
+
         listshowrcy = (RecyclerView) findViewById(R.id.listshow);
         listshowrcy.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listshowrcy.setLayoutManager(linearLayoutManager);
         adapter = new MainActivityAdapter(productlists, CatagoryActivity.this);
         listshowrcy.setAdapter(adapter);
+
+        loadCatagoryList();
+
 
 
 //       listshowrcy.setAlpha(0);
@@ -94,6 +107,40 @@ public class CatagoryActivity extends AppCompatActivity {
 //            }
 //        });
 
+
+
+    }
+
+
+
+    public void loadCatagoryList()
+    {
+        Firebase workCatList=new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories");
+
+
+        workCatList.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot dsp: dataSnapshot.getChildren()){
+
+                    String catName=dsp.getKey();
+                    System.out.println("cat-> "+dsp.getKey());
+
+                    adapter.updateWorkerList(new Item(catName,R.drawable.yamahafazer));
+                    adapter.notifyDataSetChanged();
+
+                   // productlists.add(new Item(catName,R.drawable.bmwr120gsa));
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
 
 
     }

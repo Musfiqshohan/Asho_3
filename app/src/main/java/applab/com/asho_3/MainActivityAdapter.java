@@ -35,7 +35,7 @@ public class MainActivityAdapter  extends
 
 
                 Intent myIntent = new Intent(context, EmployeeListActivity.class);
-                myIntent.putExtra("newCatagory", "Programmer"); //Optional parameters
+                myIntent.putExtra("newCatagory", productlist.get(position).getName()); //Optional parameters
                 context.startActivity(myIntent);
 
 
@@ -63,6 +63,14 @@ public class MainActivityAdapter  extends
             v_name = (TextView) itemView.findViewById(R.id.product_title);
         }
     }
+
+
+    public void updateWorkerList(Item newItem)
+    {
+        productlist.add(newItem);
+
+    }
+
 
 
 
