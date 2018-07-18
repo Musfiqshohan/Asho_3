@@ -19,6 +19,16 @@
         android:inputType="text">
     </EditText>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+
+        android:text="Add and Logo from your gallery"
+        android:id="@+id/addLogo"
+        android:textSize="15sp"
+        android:onClick="addLogoClicked"
+        />
+
 
     <Button
         android:layout_width="wrap_content"

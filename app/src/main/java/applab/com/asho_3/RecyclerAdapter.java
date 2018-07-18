@@ -21,15 +21,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
     Context context;
-    ArrayList<String> titles,details;
-
-    public RecyclerAdapter(Context mainActivity) {
+    ArrayList<String> titles,details,NID;
+    String Catagory;
+    public RecyclerAdapter(Context mainActivity,String Catagory) {
 
         context = mainActivity;
         titles=new ArrayList<>();
         details=new ArrayList<>();
-        titles.add("hello test");
-        details.add("hello test details");
+        NID=new ArrayList<>();
+
+//        titles.add("hello test");
+//        details.add("hello test details");
+//        details.add("1212");
+        this.Catagory=Catagory;
     }
 
 
@@ -86,9 +90,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                     if(context instanceof EmployeeListActivity)
                     {
-                    Intent myIntent = new Intent(context, ProfileActivity.class);
-                    myIntent.putExtra("key", "hello"); //Optional parameters
-                    context.startActivity(myIntent);
+//                    Intent myIntent = new Intent(context, ProfileActivity.class);
+//                    myIntent.putExtra("key", "hello"); //Optional parameters
+//                    context.startActivity(myIntent);
+                        Intent myIntent = new Intent(context, ProfileActivity.class);
+                        myIntent.putExtra("Catagory", Catagory); //Optional parameters
+                        myIntent.putExtra("NID", NID.get(position)); //Optional parameters
+                        context.startActivity(myIntent);
+
+
                     }
                     else if(context instanceof CatagoryActivity)
                     {
@@ -127,10 +137,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
 
-    public void updateWorkerList(EmployeeProfile employeeProfile)
+    public void updateWorkerList(EmployeeProfileClass employeeProfile)
     {
         titles.add(employeeProfile.Name);
         details.add(employeeProfile.Email);
+        NID.add(employeeProfile.Nid);
 
     }
 

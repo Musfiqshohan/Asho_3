@@ -20,26 +20,39 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
 
-
+    RecyclerView recyclerView;
+    RecyclerView.LayoutManager layoutManager;
+    ProfileAdapter adapter;
 
     private static final int REQUEST_CALL = 1;
-
     private FloatingActionButton fab;
     private String phoneNumber="01521326618";
+
+
+    TextView nameField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
-        String value = intent.getStringExtra("key");
-        System.out.println(value);
+        String Catagory = intent.getStringExtra("Catagory");
+        String NID = intent.getStringExtra("NID");
+
+
+        nameField=findViewById(R.id.name);
 
         fab= findViewById(R.id.fab);
 
@@ -49,6 +62,17 @@ public class ProfileActivity extends AppCompatActivity {
                 makePhoneCall();
             }
         });
+
+
+
+
+        recyclerView =(RecyclerView) findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new ProfileAdapter(ProfileActivity.this);
+        recyclerView.setAdapter(adapter);
+
+        loadWorkerList(Catagory,NID);  /// neeed work
 
 
     }
@@ -81,6 +105,68 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+
+
+
+    public void loadWorkerList(String catagoryName,final String NID)
+    {
+        Firebase FDataBaseRef=new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories");
+        Firebase workCat= FDataBaseRef.child(catagoryName);
+        Firebase employeeList= workCat.child("EmployeeList");
+        Firebase workerInfo= employeeList.child(NID);
+
+
+
+
+        System.out.println();
+
+
+        workerInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot dsp: dataSnapshot.getChildren()){
+
+                    String key=dsp.getKey();
+                    String val=dsp.getValue(String.class);
+
+                    if(key=="Name")
+                    {
+                        nameField.setText(val);
+                    }
+                    else if(key=="Phone")
+                        phoneNumber=val;
+
+                    System.out.println(key+"->->"+val);
+                    adapter.updateWorkerList(key,val);
+                    adapter.notifyDataSetChanged();
+
+
+//                    if(dsp.getKey()==NID) {
+//
+//                        EmployeeProfileClass employeeProfile=dsp.getValue(EmployeeProfileClass.class);
+//
+//                        adapter.updateWorkerList(employeeProfile);
+//                        adapter.notifyDataSetChanged();
+//
+//                        System.out.println("adding: "+employeeProfile);
+//                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
     }
 
 

@@ -4,19 +4,19 @@ package applab.com.asho_3;
  * Created by musfiq on 7/8/18.
  */
 
-public class EmployeeProfile {
+public class EmployeeProfileClass {
 
 
     //String DOB,NID,address,email,name,phone,usefulLinks;
     public String Phone,Name,Email,Address,Dob,Usefullinks,Nid;
 
-    public EmployeeProfile()
+    public EmployeeProfileClass()
     {
 
     }
 
 
-    public EmployeeProfile(String phone, String name, String email, String address, String dob, String usefullinks, String nid) {
+    public EmployeeProfileClass(String phone, String name, String email, String address, String dob, String usefullinks, String nid) {
         Phone = phone;
         Name = name;
         Email = email;
@@ -29,7 +29,7 @@ public class EmployeeProfile {
 
     @Override
     public String toString() {
-        return "EmployeeProfile{" +
+        return "EmployeeProfileClass{" +
                 "Phone='" + Phone + '\'' +
                 ", Name='" + Name + '\'' +
                 ", Email='" + Email + '\'' +

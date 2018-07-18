@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 
 /**
  * Created by musfiq on 7/10/18.
@@ -41,7 +40,7 @@ public class EditWorkerActivity extends AppCompatActivity {
         Usefullinks=((EditText)findViewById(R.id.w_link)).getText().toString();
         Dob=((EditText)findViewById(R.id.w_DOB)).getText().toString();
 
-        EmployeeProfile employeeProfile= new EmployeeProfile(Name,Email,Address,Phone,Nid,Usefullinks,Dob);
+        EmployeeProfileClass employeeProfile= new EmployeeProfileClass(Name,Email,Address,Phone,Nid,Usefullinks,Dob);
         Firebase FDataBaseRef=new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories");
         Firebase workCat= FDataBaseRef.child(currCatagory);
         Firebase employeeList= workCat.child("EmployeeList");
