@@ -3,6 +3,7 @@ package applab.com.asho_3;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +129,11 @@ public class CatagoryActivity extends AppCompatActivity {
                     String catName=dsp.getKey();
                     System.out.println("cat-> "+dsp.getKey());
 
-                    adapter.updateWorkerList(new Item(catName,R.drawable.yamahafazer));
+                    String downloadLink=dsp.child("catagoryLogo").getValue().toString();
+                    Uri downloadUri=Uri.parse(downloadLink);
+                   // ImageView catagory_logo;
+                   // Picasso.with(CatagoryActivity.this).load(downloadUri).
+                    adapter.updateWorkerList(new Item(catName,R.drawable.yamahafazer), downloadUri);
                     adapter.notifyDataSetChanged();
 
                    // productlists.add(new Item(catName,R.drawable.bmwr120gsa));

@@ -56,6 +56,10 @@ public class EditWorkerActivity extends AppCompatActivity {
         employees.child("Dob").setValue(Dob);
 
 
+
+
+
+
         finish();
 
     }

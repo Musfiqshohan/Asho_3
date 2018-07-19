@@ -1,6 +1,7 @@
 package applab.com.asho_3;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 /** * Created by amit rawat on 11/27/2017. */
 public class MainActivityAdapter  extends
         RecyclerView.Adapter<MainActivityAdapter.Holderview>{
     private List<Item> productlist;
+    private Uri downloadUri;
     private Context context;
     public MainActivityAdapter(List<Item> productlist, Context context) {
         this.productlist = productlist;
@@ -26,7 +31,10 @@ public class MainActivityAdapter  extends
     }
     @Override    public void onBindViewHolder(Holderview holder, final int position) {
         holder.v_name.setText(productlist.get(position).getName());
-        holder.v_image.setImageResource(productlist.get(position).getPhoto());
+        //holder.v_image.setImageResource(productlist.get(position).getPhoto());
+        Picasso.with(context).load(downloadUri).fit().centerCrop().into(holder.v_image);
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override            public void onClick(View view) {
                 Toast.makeText(context, "click on " + productlist.get(position).getName(),
@@ -59,14 +67,16 @@ public class MainActivityAdapter  extends
         Holderview(View itemview)
         {
             super(itemview);
-            v_image=(ImageView) itemview.findViewById(R.id.product_image);
-            v_name = (TextView) itemView.findViewById(R.id.product_title);
+            v_image=(ImageView) itemview.findViewById(R.id.catagory_logo);
+            v_name = (TextView) itemView.findViewById(R.id.catagory_title);
         }
     }
 
 
-    public void updateWorkerList(Item newItem)
+    public void updateWorkerList(Item newItem, Uri downloadUri)
     {
+        System.out.println("uri-> "+downloadUri.toString());
+        this.downloadUri=downloadUri;
         productlist.add(newItem);
 
     }

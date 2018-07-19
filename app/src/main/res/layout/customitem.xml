@@ -14,18 +14,18 @@
         android:padding="5dp">
 
         <ImageView
-            android:id="@+id/product_image"
+            android:id="@+id/catagory_logo"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:padding="0.75dp"
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/product_title"
+            android:id="@+id/catagory_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_toRightOf="@+id/product_image"
+            android:layout_toRightOf="@+id/catagory_logo"
             android:text="title"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </RelativeLayout>
