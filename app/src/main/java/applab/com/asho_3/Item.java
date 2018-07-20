@@ -1,23 +1,35 @@
 package applab.com.asho_3;
 
 
+import android.net.Uri;
+
 /** * Created by amit rawat on 11/27/2017. */public class Item {
     private String name;
-    private int photo;
-    public Item(String name, int photo) {
+
+    private Uri downloadUri;
+
+
+    public Item(String name, Uri downloadUri) {
+
         this.name = name;
-        this.photo = photo;
+        this.downloadUri = downloadUri;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
-    public int getPhoto() {
-        return photo;
+
+    public Uri getdownloadUri() {
+        return downloadUri;
     }
-    public void setPhoto(int photo) {
-        this.photo = photo;
+
+    public void setdownloadUri(Uri downloadUri) {
+        this.downloadUri = downloadUri;
     }
+
+
 }

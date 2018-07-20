@@ -27,6 +27,9 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -41,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     TextView nameField;
+    CircleImageView circleImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         nameField=findViewById(R.id.name);
+        circleImageView= (CircleImageView) findViewById(R.id.profile_picture);
 
         fab= findViewById(R.id.fab);
 
@@ -139,6 +144,11 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                     else if(key=="Phone")
                         phoneNumber=val;
+                    else if(key=="ProfilePicture")
+                    {
+                        setProPic(val);
+
+                    }
 
                     System.out.println(key+"->->"+val);
                     adapter.updateWorkerList(key,val);
@@ -166,6 +176,19 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    public void setProPic(String proPicUrl)
+    {
+        Uri downloadUri=Uri.parse(proPicUrl);
+//        Picasso.with(getApplicationContext()).load(proPicUrl)
+//                .placeholder(R.drawable.images).error(R.drawable.ic_launcher)
+//                .into(imageView);
+
+        //setting the loaded image as profile pic
+        Picasso.with(getApplicationContext()).load(downloadUri).fit().centerCrop().into(circleImageView);
 
     }
 

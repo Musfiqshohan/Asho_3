@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFCDD2"
@@ -17,6 +22,29 @@
         android:textColor="#ce3232"
         android:textSize="35sp"
         android:typeface="serif" />
+
+
+
+
+    <ImageView
+        android:id="@+id/proImgView"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+
+        android:text="Upload Profile
+Picture"
+        android:id="@+id/addProPic"
+        android:textSize="15sp"
+        android:onClick="addProPicClicked"
+        android:layout_gravity="center_horizontal"
+        />
 
     <EditText
         android:id="@+id/w_name"
@@ -90,3 +118,4 @@
         android:text="Submit"
         android:textColor="#fff" />
 </LinearLayout>
+</ScrollView>

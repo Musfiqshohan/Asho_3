@@ -131,9 +131,9 @@ public class CatagoryActivity extends AppCompatActivity {
 
                     String downloadLink=dsp.child("catagoryLogo").getValue().toString();
                     Uri downloadUri=Uri.parse(downloadLink);
-                   // ImageView catagory_logo;
-                   // Picasso.with(CatagoryActivity.this).load(downloadUri).
-                    adapter.updateWorkerList(new Item(catName,R.drawable.yamahafazer), downloadUri);
+
+                    //Here storing catagory name and Logo download URI
+                    adapter.updateWorkerList(new Item(catName, downloadUri));
                     adapter.notifyDataSetChanged();
 
                    // productlists.add(new Item(catName,R.drawable.bmwr120gsa));

@@ -1,4 +1,5 @@
 package applab.com.asho_3;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,32 +15,40 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-/** * Created by amit rawat on 11/27/2017. */
-public class MainActivityAdapter  extends
-        RecyclerView.Adapter<MainActivityAdapter.Holderview>{
+
+/**
+ * Created by amit rawat on 11/27/2017.
+ */
+public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapter.Holderview> {
     private List<Item> productlist;
-    private Uri downloadUri;
+  //  private Uri downloadUri;
     private Context context;
+
     public MainActivityAdapter(List<Item> productlist, Context context) {
         this.productlist = productlist;
         this.context = context;
     }
-    @Override    public Holderview onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layout= LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.customitem,parent,false);
+
+    @Override
+    public Holderview onCreateViewHolder(ViewGroup parent, int viewType) {
+        View layout = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.customitem, parent, false);
         return new Holderview(layout);
     }
-    @Override    public void onBindViewHolder(Holderview holder, final int position) {
+
+    @Override
+    public void onBindViewHolder(Holderview holder, final int position) {
         holder.v_name.setText(productlist.get(position).getName());
         //holder.v_image.setImageResource(productlist.get(position).getPhoto());
-        Picasso.with(context).load(downloadUri).fit().centerCrop().into(holder.v_image);
+        System.out.println("pos: " + position + "  ->" + productlist.get(position).getdownloadUri().toString());
+        Picasso.with(context).load(productlist.get(position).getdownloadUri()).fit().centerCrop().into(holder.v_image);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override            public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 Toast.makeText(context, "click on " + productlist.get(position).getName(),
                         Toast.LENGTH_LONG).show();
-
 
 
                 Intent myIntent = new Intent(context, EmployeeListActivity.class);
@@ -47,41 +56,48 @@ public class MainActivityAdapter  extends
                 context.startActivity(myIntent);
 
 
-
             }
         });
     }
-    @Override    public int getItemCount() {
+
+    @Override
+    public int getItemCount() {
         return productlist.size();
     }
-    public void setfilter(List<Item> listitem)
-    {
-        productlist=new ArrayList<>();
+
+    public void setfilter(List<Item> listitem) {
+        productlist = new ArrayList<>();
         productlist.addAll(listitem);
         notifyDataSetChanged();
     }
-    class Holderview extends RecyclerView.ViewHolder
-    {
+
+    class Holderview extends RecyclerView.ViewHolder {
         ImageView v_image;
         TextView v_name;
-        Holderview(View itemview)
-        {
+
+        Holderview(View itemview) {
             super(itemview);
-            v_image=(ImageView) itemview.findViewById(R.id.catagory_logo);
+            v_image = (ImageView) itemview.findViewById(R.id.catagory_logo);
             v_name = (TextView) itemView.findViewById(R.id.catagory_title);
         }
     }
 
 
-    public void updateWorkerList(Item newItem, Uri downloadUri)
-    {
-        System.out.println("uri-> "+downloadUri.toString());
-        this.downloadUri=downloadUri;
+//    @Override
+//    protected void populateViewHolder(final MessageViewHolder viewHolder, MsgPack model, int position) {
+//
+//        viewHolder.bText.setText(model.getTopic());
+//        viewHolder.dText.setText(model.getImageurl());
+//        Picasso.with(viewHolder.aImage.getContext()).load(model.getImageurl()).into(viewHolder.aImage);
+//
+//    }
+
+
+    public void updateWorkerList(Item newItem) {
+       // System.out.println("uri-> " + downloadUri.toString());
         productlist.add(newItem);
 
     }
-
-
 
 
 }
