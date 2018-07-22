@@ -2,8 +2,9 @@ package applab.com.asho_3;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
   //  private Uri downloadUri;
     private Context context;
 
+
     public MainActivityAdapter(List<Item> productlist, Context context) {
         this.productlist = productlist;
         this.context = context;
@@ -37,11 +39,62 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     }
 
     @Override
-    public void onBindViewHolder(Holderview holder, final int position) {
+    public void onBindViewHolder(final Holderview holder, final int position) {
         holder.v_name.setText(productlist.get(position).getName());
+
         //holder.v_image.setImageResource(productlist.get(position).getPhoto());
         System.out.println("pos: " + position + "  ->" + productlist.get(position).getdownloadUri().toString());
-        Picasso.with(context).load(productlist.get(position).getdownloadUri()).fit().centerCrop().into(holder.v_image);
+        Picasso.with(context)
+                .load(productlist.get(position).getdownloadUri())
+                .fit()
+                .centerCrop()
+                .into(holder.v_image);
+
+        ///This is for detecting click on catagory option menu
+     /*   holder.catagory_options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(context, holder.catagory_options);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.edit_option_menu);
+                //adding click listener
+
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+
+                            ///when clicked on options
+                            case R.id.Edit
+
+//                                Intent intent = new Intent(context, EditFieldClass.class);
+//                                ((MainActivity)mCtx).startActivityForResult(intent, Intent_Constants.INTENT_REQUEST_CODE);
+//                                DeleteFromList(i,2);
+
+                                ///on construction  need edit here
+                                Intent intent = new Intent(context, AddCatagory.class);
+                                context.startActivity(intent);
+                                break;
+
+                            case R.id.Delete:
+                                DeleteFromList(position,1);
+                                Toast.makeText(context, "Catagory Deleted", Toast.LENGTH_SHORT).show();
+                                break;
+
+                        }
+                        return false;
+                    }
+                });
+
+                //displaying the popup
+                popup.show();
+
+            }
+        });*/
+
+
+
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -74,24 +127,26 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     class Holderview extends RecyclerView.ViewHolder {
         ImageView v_image;
         TextView v_name;
+        TextView catagory_options;
 
         Holderview(View itemview) {
             super(itemview);
             v_image = (ImageView) itemview.findViewById(R.id.catagory_logo);
             v_name = (TextView) itemView.findViewById(R.id.catagory_title);
+            catagory_options = (TextView) itemView.findViewById(R.id.edit_options);
+
         }
     }
 
 
-//    @Override
-//    protected void populateViewHolder(final MessageViewHolder viewHolder, MsgPack model, int position) {
-//
-//        viewHolder.bText.setText(model.getTopic());
-//        viewHolder.dText.setText(model.getImageurl());
-//        Picasso.with(viewHolder.aImage.getContext()).load(model.getImageurl()).into(viewHolder.aImage);
-//
-//    }
 
+    public  void DeleteFromList(int pos, int isDone)
+    {
+        Log.d("RecyclerAdapter","in Rec want to delete "+pos);
+
+        productlist.remove(pos);
+        this.notifyDataSetChanged();
+    }
 
     public void updateWorkerList(Item newItem) {
        // System.out.println("uri-> " + downloadUri.toString());

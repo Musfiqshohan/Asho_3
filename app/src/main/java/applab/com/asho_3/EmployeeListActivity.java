@@ -65,6 +65,7 @@ public class EmployeeListActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(EmployeeListActivity.this, EditWorkerActivity.class);
         intent.putExtra("currentCatagory", currCatagory);
+        intent.putExtra("NID", "-1");
         startActivityForResult(intent, 500);
 
     }

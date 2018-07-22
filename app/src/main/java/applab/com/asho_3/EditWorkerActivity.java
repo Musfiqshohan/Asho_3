@@ -13,13 +13,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by musfiq on 7/10/18.
@@ -47,8 +51,14 @@ public class EditWorkerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         currCatagory =intent.getStringExtra("currentCatagory");
+        Nid =intent.getStringExtra("NID");
         proImgView=(ImageView)findViewById(R.id.proImgView);
         addProPic=(Button) findViewById(R.id.addProPic);
+
+
+        ///Edit mode
+        if(Nid!="-1")
+          loadAllFields(currCatagory,Nid);
 
 
         ///upload Profile image with this button
@@ -61,6 +71,61 @@ public class EditWorkerActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    public void loadAllFields(String currCatagory, String Nid)
+    {
+
+//        Firebase FDataBaseRef = new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories/"+currCatagory+"/EmployeeList/"+Nid);
+        Firebase FDataBaseRef=new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories");
+        Firebase workCat= FDataBaseRef.child(currCatagory);
+        Firebase employeeList= workCat.child("EmployeeList");
+        Firebase workerInfo= employeeList.child(Nid);
+
+
+
+
+
+        workerInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot dsp: dataSnapshot.getChildren()){
+
+                    String key=dsp.getKey();
+                    String val=dsp.getValue(String.class);
+
+                    if(key=="Name")  ((EditText)findViewById(R.id.w_name)).setText(val);
+                    else if(key=="Email") ((EditText)findViewById(R.id.w_email)).setText(val);
+                    else if(key=="Address") ((EditText)findViewById(R.id.w_address)).setText(val);
+                    else if(key=="Phone") ((EditText)findViewById(R.id.w_phone)).setText(val);
+                    else if(key=="Nid") ((EditText)findViewById(R.id.w_NID)).setText(val);
+                    else if(key=="Usefullinks") ((EditText)findViewById(R.id.w_link)).setText(val);
+                    else if(key=="Dob") ((EditText)findViewById(R.id.w_DOB)).setText(val);
+                    else if(key=="ProfilePicture") loadProfileImage(val);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+
+
+    }
+
+    ///when I need to load image in edit mode
+    public void loadProfileImage(String proPicUrl)
+    {
+        Uri downloadUri=Uri.parse(proPicUrl);
+        //setting the loaded image as profile pic
+        Picasso.with(getApplicationContext()).load(downloadUri).fit().centerCrop().into(proImgView);
     }
 
 
