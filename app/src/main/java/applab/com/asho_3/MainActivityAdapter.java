@@ -2,16 +2,23 @@ package applab.com.asho_3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,7 +58,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
                 .into(holder.v_image);
 
         ///This is for detecting click on catagory option menu
-     /*   holder.catagory_options.setOnClickListener(new View.OnClickListener() {
+        holder.catagory_options.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PopupMenu popup = new PopupMenu(context, holder.catagory_options);
@@ -66,7 +73,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
                         switch (item.getItemId()) {
 
                             ///when clicked on options
-                            case R.id.Edit
+                            case R.id.Edit:
 
 //                                Intent intent = new Intent(context, EditFieldClass.class);
 //                                ((MainActivity)mCtx).startActivityForResult(intent, Intent_Constants.INTENT_REQUEST_CODE);
@@ -78,7 +85,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
                                 break;
 
                             case R.id.Delete:
-                                DeleteFromList(position,1);
+                                DeleteFromList(position);
                                 Toast.makeText(context, "Catagory Deleted", Toast.LENGTH_SHORT).show();
                                 break;
 
@@ -91,7 +98,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
                 popup.show();
 
             }
-        });*/
+        });
 
 
 
@@ -125,9 +132,9 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
     }
 
     class Holderview extends RecyclerView.ViewHolder {
-        ImageView v_image;
-        TextView v_name;
-        TextView catagory_options;
+        public ImageView v_image;
+        public TextView v_name;
+        public TextView catagory_options;
 
         Holderview(View itemview) {
             super(itemview);
@@ -140,13 +147,52 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityAdapte
 
 
 
-    public  void DeleteFromList(int pos, int isDone)
+    public  void DeleteFromList(int pos)
     {
         Log.d("RecyclerAdapter","in Rec want to delete "+pos);
 
+        deleteRecord(pos);
         productlist.remove(pos);
         this.notifyDataSetChanged();
     }
+
+
+    //removing deleted catagory
+    void deleteRecord(int pos)
+    {
+        String catagoryName=productlist.get(pos).getName();
+        ///this part for deleting whole information from firedatabase
+        Firebase catagoryList=new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories/");
+      //  System.out.println("catagory-> "+Catagory+" deleted Nid-> "+NID.get(pos)+" ref"+employeeList.child(NID.get(pos)));
+        catagoryList.child(catagoryName).removeValue();
+
+
+        ///This part for deleting image of unique nid form firebase storage
+        StorageReference storageReference;
+        FirebaseStorage storage;
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+        StorageReference photoRef = storageReference.child("catagoryLogo/"+catagoryName);
+
+
+        photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // File deleted successfully
+                Log.d("ok", "onSuccess: deleted file");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Uh-oh, an error occurred!
+                Log.d("notok", "onFailure: did not delete file");
+            }
+        });
+
+    }
+
 
     public void updateWorkerList(Item newItem) {
        // System.out.println("uri-> " + downloadUri.toString());

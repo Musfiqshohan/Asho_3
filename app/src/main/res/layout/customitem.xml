@@ -31,7 +31,7 @@
 
 
         <TextView
-            android:id="@+id/catagory_options"
+            android:id="@+id/edit_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
