@@ -10,6 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".Asho_3">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAic9DD5_GJEDGt34HDp52kgUPuQlvcmrY"/>
+
+
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +33,10 @@
         <activity android:label="Edit catagory" android:name=".EmployeeListActivity"/>  // added here
         <activity android:label="Asho_3" android:name=".ProfileActivity"/>  // added here
         <activity android:label="Asho_3" android:name=".AddCatagory"/>  // added here
-        <activity android:label="Edit Worker Info" android:name=".EditWorkerActivity"/>  // added here
+        <activity android:label="Edit Worker Info" android:name=".EditWorkerActivity"/>
+        <activity android:label="Edit Worker Info" android:name=".MapActivity"/>
+        // added here
+        // added here
 
     </application>
 
@@ -30,5 +44,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+
+
 
 </manifest>
