@@ -10,8 +10,11 @@ public class EmployeeProfileClass {
 
 
     //String DOB,NID,address,email,name,phone,usefulLinks;
-    public String Phone,Name,Email,Address,Dob,Usefullinks,Nid;
+    public String Phone,Name,Email,Address,Dob,Usefullinks,Nid,Payment;
     public String ProfilePicture;
+
+
+
 
     public EmployeeProfileClass()
     {
@@ -19,7 +22,7 @@ public class EmployeeProfileClass {
     }
 
 
-    public EmployeeProfileClass(String phone, String name, String email, String address, String dob, String usefullinks, String nid, String profilePicture) {
+    public EmployeeProfileClass(String phone, String name, String email, String address, String dob, String usefullinks, String nid,  String payment, String profilePicture) {
 
         Phone = phone;
         Name = name;
@@ -28,6 +31,7 @@ public class EmployeeProfileClass {
         Dob = dob;
         Usefullinks = usefullinks;
         Nid = nid;
+        Payment=payment;
         ProfilePicture = profilePicture;
     }
 
@@ -95,6 +99,14 @@ public class EmployeeProfileClass {
     public void setProfilePicture(String profilePicture) {
         ProfilePicture = profilePicture;
     }
+    public String getPayment() {
+        return Payment;
+    }
+
+    public void setPayment(String payment) {
+        this.Payment = payment;
+    }
+
 
 
 }

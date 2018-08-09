@@ -41,7 +41,7 @@ import java.util.Map;
 public class EditWorkerActivity extends AppCompatActivity {
 
     //String name,email,address,phone,NID, usefulLinks, DOB;
-    String Phone, Name, Email, Dob, Usefullinks, Nid;
+    String Phone, Name, Email, Dob, Usefullinks, Nid,Payment;
     String Address;
     public String currCatagory;
 
@@ -223,9 +223,10 @@ public class EditWorkerActivity extends AppCompatActivity {
         Nid = ((EditText) findViewById(R.id.w_NID)).getText().toString();
         Usefullinks = ((EditText) findViewById(R.id.w_link)).getText().toString();
         Dob = ((EditText) findViewById(R.id.w_DOB)).getText().toString();
+        Payment=((EditText) findViewById(R.id.w_payment)).getText().toString()+"/"+((Spinner) findViewById(R.id.unit_spinner)).getSelectedItem().toString();  //*
 
         //Storing everything without the download uri string cz later uploading it
-        EmployeeProfileClass employeeProfile = new EmployeeProfileClass(Name, Email, Address, Phone, Nid, Usefullinks, Dob, "uriString coming");
+        EmployeeProfileClass employeeProfile = new EmployeeProfileClass(Name, Email, Address, Phone, Nid, Usefullinks, Dob, Payment, "uriString coming");  //*
         Firebase FDataBaseRef = new Firebase("https://newsfeed-5e0ae.firebaseio.com/Work_Catagories");
         Firebase workCat = FDataBaseRef.child(currCatagory);
         Firebase employeeList = workCat.child("EmployeeList");
@@ -239,6 +240,7 @@ public class EditWorkerActivity extends AppCompatActivity {
         employees.child("Nid").setValue(Nid);
         employees.child("Usefullinks").setValue(Usefullinks);
         employees.child("Dob").setValue(Dob);
+        employees.child("Payment").setValue(Payment);  //*
 
 
         uploadImage(currCatagory, Nid);

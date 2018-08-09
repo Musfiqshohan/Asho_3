@@ -147,6 +147,7 @@ public class ProfileActivity extends AppCompatActivity {
                     else if(key=="ProfilePicture")
                     {
                         setProPic(val);
+                        continue;
 
                     }
 
