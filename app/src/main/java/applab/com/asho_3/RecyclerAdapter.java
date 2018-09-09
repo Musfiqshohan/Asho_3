@@ -200,6 +200,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         System.out.println("catagory-> "+Catagory+" deleted Nid-> "+NID.get(pos)+" ref"+employeeList.child(NID.get(pos)));
         employeeList.child(NID.get(pos)).removeValue();
 
+      //admin does not change the current geo location
+
 
         ///This part for deleting image of unique nid form firebase storage
          StorageReference storageReference;

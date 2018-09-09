@@ -2,7 +2,9 @@ package applab.com.asho_3;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,27 +12,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.leakcanary.LeakCanary;
+
+import applab.com.asho_3.Authentication.AuthActivity;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
-    
+
     
     
     
     EditText initSearch;
+    Button logout_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +49,32 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
+        ///BGS testing
+
+        Log.d(TAG, "onCreate: calling startService");
+
+
+        //startService(new Intent(getBaseContext(), BGMapService.class));
+        //startService(new Intent(getBaseContext(), MyService.class));
+        Log.d(TAG, "onCreate: called?");
+
 
 
 
 
         setContentView(R.layout.activity_main);   /// this is the main layout
         initSearch = (EditText) findViewById(R.id.search_text);
-
+        logout_button=(Button) findViewById(R.id.logout_button);
 
         initSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ///bgs testing
+                //stopService(new Intent(getBaseContext(), BGMapService.class));
+               // stopService(new Intent(MainActivity.this, BGMapService.class));
+                //stopService(new Intent(MainActivity.this, MyService.class));
+
                 Toast.makeText(getApplicationContext(), "Your toast message.",
                         Toast.LENGTH_SHORT).show();
 
@@ -68,46 +82,33 @@ public class MainActivity extends AppCompatActivity {
                 myIntent.putExtra("key", "hello"); //Optional parameters
                 MainActivity.this.startActivity(myIntent);
                 overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+
+//                Intent myIntent = new Intent(MainActivity.this, AuthActivity.class);
+//                myIntent.putExtra("key", "hello"); //Optional parameters
+//                MainActivity.this.startActivity(myIntent);
+//                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
         });
 
 
-        Firebase FDataBaseRef;
-        FDataBaseRef= new Firebase("https://newsfeed-5e0ae.firebaseio.com/");
-        Firebase PostDivision = FDataBaseRef.child("Work_Catagories");
-
-        PostDivision.addListenerForSingleValueEvent(new com.firebase.client.ValueEventListener() {
-            @Override
-            public void onDataChange(com.firebase.client.DataSnapshot dataSnapshot) {
-
-                for(com.firebase.client.DataSnapshot dsp: dataSnapshot.getChildren()){
-
-                    System.out.println( dsp.getKey()+"->  "+dsp.getValue());
-                }
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-
-    }
-
-    private void init()
-    {
-        Button btnMap=(Button)findViewById(R.id.btnMap);
-        btnMap.setOnClickListener(new View.OnClickListener() {
+        ///added log out button , here may cause problem
+        logout_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent);
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                prefs.edit().putBoolean("Islogin", false).commit(); // islogin is a boolean value of your login status
+                finish();
             }
         });
 
+
+
+
     }
+
+
+
+
 
 
     public boolean isServiceOk(){

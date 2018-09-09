@@ -20,14 +20,20 @@
             android:value="AIzaSyAic9DD5_GJEDGt34HDp52kgUPuQlvcmrY"/>
 
 
+        //made the authactivity the starting activity
+        <activity android:name=".Authentication.AuthActivity">
 
-        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+
+            </activity>
+
+        <activity android:name=".MainActivity"></activity>
+
+
+
 
         <activity android:label="Asho_3" android:name=".CatagoryActivity"/>  // added here
         <activity android:label="Edit catagory" android:name=".EmployeeListActivity"/>  // added here
@@ -35,8 +41,15 @@
         <activity android:label="Asho_3" android:name=".AddCatagory"/>  // added here
         <activity android:label="Edit Worker Info" android:name=".EditWorkerActivity"/>
         <activity android:label="Edit Worker Info" android:name=".MapActivity"/>
+        <activity android:label="Edit Worker Info" android:name=".NearWorkerMapActivity"/>
+
+
         // added here
         // added here
+
+        //bgs testing
+        <service android:name=".BGMapService"/>
+        <service android:name=".MyService" />
 
     </application>
 

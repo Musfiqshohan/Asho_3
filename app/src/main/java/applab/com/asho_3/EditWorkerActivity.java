@@ -34,6 +34,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
+import applab.com.asho_3.SideClasses.Global;
+
 /**
  * Created by musfiq on 7/10/18.
  */
@@ -244,6 +246,16 @@ public class EditWorkerActivity extends AppCompatActivity {
 
 
         uploadImage(currCatagory, Nid);
+
+        //Start the location update service
+//        if(Global.isServiceRunning==false) {
+//            Intent mapserviceIntent = new Intent(getBaseContext(),BGMapService.class);
+//            mapserviceIntent.putExtra("currCatagory", currCatagory);
+//            mapserviceIntent.putExtra("Nid", Nid);
+//            this.startService(mapserviceIntent);
+//          //  startService(new Intent(getBaseContext(), BGMapService.class));
+//            Global.isServiceRunning = true;
+//        }
 
 
         finish();

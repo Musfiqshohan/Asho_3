@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -138,20 +139,24 @@ public class ProfileActivity extends AppCompatActivity {
                     String key=dsp.getKey();
                     String val=dsp.getValue(String.class);
 
+                    System.out.println(key+"->xx->"+val);
                     if(key=="Name")
                     {
                         nameField.setText(val);
                     }
                     else if(key=="Phone")
                         phoneNumber=val;
-                    else if(key=="ProfilePicture")
+                    else if(key=="profilePicture")
                     {
+                        Log.d("look", "onDataChange: going to set");
                         setProPic(val);
                         continue;
 
+                    }else{
+
+                       // Log.d("wtf", "onDataChange: "+key);
                     }
 
-                    System.out.println(key+"->->"+val);
                     adapter.updateWorkerList(key,val);
                     adapter.notifyDataSetChanged();
 
@@ -189,6 +194,8 @@ public class ProfileActivity extends AppCompatActivity {
 //                .into(imageView);
 
         //setting the loaded image as profile pic
+
+        Log.d("ProfileActivity", "setProPic: ok now setting "+proPicUrl);
         Picasso.with(getApplicationContext()).load(downloadUri).fit().centerCrop().into(circleImageView);
 
     }

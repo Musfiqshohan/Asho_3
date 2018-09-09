@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 public class CatagoryActivity extends AppCompatActivity {
+    private static final String TAG ="CatagoryActivity" ;
     SearchView searchView;
     RecyclerView listshowrcy;
     List<Item> productlists = new ArrayList<>();
@@ -45,40 +47,6 @@ public class CatagoryActivity extends AppCompatActivity {
 
 
 
-
-
-//        //adding product name and image in array list of Item type
-//        productlists.add(new Item("Harley Davidson Street 750 2016 Std",
-//                R.drawable.harleydavidson));
-//        productlists.add(new Item("Triumph Street Scramble 2017 Std",
-//                R.drawable.streetscramble1));
-//        productlists.add(new Item("Suzuki GSX R1000 2017 STD",
-//                R.drawable.suzukigsx1000));
-//        productlists.add(new Item("Suzuki GSX R1000 2017 R",
-//                R.drawable.suzukigsx1000r));
-//        productlists.add(new Item("Suzuki Gixxer 2017 SP",
-//                R.drawable.suzukigixxer2017));
-//        productlists.add(new Item("Suzuki Gixxer 2017 SF 2017 Fuel injected ABS",
-//                R.drawable.suzukigixxer2017sf));
-//        productlists.add(new Item("BMW R 1200 R 2017",
-//                R.drawable.bmwr1200r));
-//        productlists.add(new Item("BMW R 1200 RS 2017",
-//                R.drawable.bmwr1200rs));
-//        productlists.add(new Item("BMW R 1200 GSA 2017",
-//                R.drawable.bmwr120gsa));
-//        productlists.add(new Item("Royal Enfield Classic 350 2017 Gunmental Grey",
-//                R.drawable.class350gungrey));
-//        productlists.add(new Item("Honda MSX125 Grom 2018 STD",
-//                R.drawable.hondagrom));
-//        productlists.add(new Item("UM Motorcycles Renegade 2017 classic",
-//                R.drawable.renegadecommandoclassic));
-//        productlists.add(new Item("Ducati Scrambler 2017 Mach 2.0",
-//                R.drawable.scramblermach));
-//        productlists.add(new Item("yamaha Fazer 2017 25",
-//                R.drawable.yamahafazer));
-
-
-
         System.out.println("cat-> finished");
 
         listshowrcy = (RecyclerView) findViewById(R.id.listshow);
@@ -89,25 +57,6 @@ public class CatagoryActivity extends AppCompatActivity {
         listshowrcy.setAdapter(adapter);
 
         loadCatagoryList();
-
-
-
-//       listshowrcy.setAlpha(0);
-//
-//        initSearch= (EditText) findViewById(R.id.search_text2);
-//        initSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Your toast message.",
-//                        Toast.LENGTH_SHORT).show();
-//
-//                initSearch.setAlpha(0);
-//                ImageView img= findViewById(R.id.imageView2);
-//                img.setAlpha(0);
-//                listshowrcy.setAlpha(1);
-//
-//            }
-//        });
 
 
 

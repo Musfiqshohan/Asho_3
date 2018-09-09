@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -20,6 +21,9 @@ public class EmployeeListActivity extends AppCompatActivity {
     //RecyclerAdapter adapter;
     RecyclerAdapter adapter;
     public String currCatagory;
+
+    private Button show_worker_map;
+
 
 
     @Override
@@ -44,6 +48,7 @@ public class EmployeeListActivity extends AppCompatActivity {
 
         recyclerView =
                 (RecyclerView) findViewById(R.id.recycler_view);
+        show_worker_map= (Button) findViewById(R.id.show_worker_map);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -57,6 +62,15 @@ public class EmployeeListActivity extends AppCompatActivity {
 //        loadWorkerList("Programmer");
 //        else
         loadWorkerList(newCatagory);
+
+
+        show_worker_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeeListActivity.this, NearWorkerMapActivity.class);
+                startActivityForResult(intent, 500);
+            }
+        });
 
 
     }
