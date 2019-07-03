@@ -1,0 +1,66 @@
+
+
+###User view:
+
+
+1. Account create:
+	sign up: ?
+	Initially which data? which should be in profile?
+	-basic info/ gmail/ facebook
+
+2. Log in:
+	phone number & password( wrong password)
+	forget password
+
+3. Location identification & routing (GPS)
+4. Payment rules
+5. Communication & notification (sms,email, push notification)	
+	-worker arrival or order confirmaiton
+
+3. Search catagory:
+   
+4. Catogory employees list show: Which employees? How many things to show?
+	How to show and use the map?
+	How to sort the employee list?
+
+
+5. Worker Profile:	Which things to show? Call button ? Any thing other?
+	i) Request
+	ii)Matching
+	iii)Tracks the approach & estimated time
+	iv)Payment
+	v) Rating
+
+
+
+
+6.  How to detect if a worker is assigned? 
+7. How that will be handled in app and what to change?
+
+
+Offers?
+
+
+
+###What is worker view?:
+How workers apply and confirmation?
+
+
+Admin view?
+
+
+
+How much online and how much offline?
+
+Designing the app.  -Simplicity in design
+
+example: taskrabbit
+some like : Thumbtack -experts, projects
+some like: uber - normal
+
+Handyman app
+
+
+
+
+
